@@ -29,7 +29,7 @@ syscall             # print
 
 li $v0, 5           # specify read of type "Integer"
 syscall             # read
-move $t1, $v0       #save the integer read in $t1
+move $t1, $v0       # save the integer read in $t1
 
 add $t2, $t1, $t0   # compute the sum
 
