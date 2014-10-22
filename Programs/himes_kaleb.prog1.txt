@@ -1,0 +1,60 @@
+Exercise 1: complete
+
+Exercise 2:
+
+Question 1: What does this code do?
+
+main:
+la $t0, a           # load the string "a" into $t0
+addi $8, -4         # subtract the integer 4 from the string "a"
+lw $9, 4($t0)       # load word 4 offset from $t0 into $9 = t1
+li $t4, 4           # $t4 = 4 load immediately
+addi $t2, $12, 0    # $12 = $t4 = 4, add 0 and store in $t2
+sub $t0, $9, $t2    # $9 = $t1 = "a", subtract $t2 = 4,
+                    # result is 6, store in $t0.
+addi $t3, $8, 8     # $8 = $t0 = 6, add 6 + 8 = 14 = 0xe
+addi $11, $t3, 0    # $11 = $t3 = e , add 0 to itself and update
+add $4, $t3, $zero  # $4 = $a0, add $t3 = 0xe and 0, store in $a0
+addi $v0, $zero, 1  # update: $v0 = 1 = "print out Integer"
+syscall             # print
+li $v0, 10          # load immediate 10 into $v0 = "exit status"
+syscall             # exit program
+
+Question 2: In hex, list the values located in R2, R8, R9, R11, 
+            and R12 after you execute the program.
+R2:  0x0a
+R8:  0x06
+R9:  0x0a
+R11: 0x0e
+R12: 0x04
+
+Question 3: This code is inefficient. Which lines can be 
+            eliminated or modified to improve efficiency? 
+            Explain each choice you make.
+
+Lines to remove      reason
+---------------      --------
+li $t4, 4            because we loaded this up then just moved it
+                     to $t2. REPLACE WITH "li $t2, 4"
+
+addi $t2, $12, 0     See above, REPLACE WITH "li $t2, 4"
+
+addi $11, $t3, 0     add zero to itself and store back in itself?
+                     YES REMOVE
+
+Question 4:
+
+main:
+la $t0, a           # load the string "a" into $t0
+addi $t0, -4        # subtract the integer 4 from the string "a"
+lw $t1, 4($t0)      # load word 4 offset from $t0 into $9 = t1
+li $t2, 4           # $t4 = 4 load immediately
+sub $t0, $t1, $t2    # $9 = $t1 = "a", subtract $t2 = 4,
+                    # result is 6, store in $t0.
+addi $t3, $t0, 8    # $8 = $t0 = 6, add 6 + 8 = 14 = 0xe
+add $a0, $t3, $zero # $4 = $a0, add $t3 = 0xe and 0, store in $a0
+addi $v0, $zero, 1  # update: $v0 = 1 = "print out Integer"
+syscall             # print
+li $v0, 10          # load immediate 10 into $v0 = "exit status"
+syscall             # exit program
+
