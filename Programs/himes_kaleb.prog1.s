@@ -1,9 +1,10 @@
 .data
-prompt1: .asciiz "Enter the first number:"
-prompt2: .asciiz "Enter the second number:"
+prompt1: .asciiz "Enter the first number: "
+prompt2: .asciiz "Enter the second number: "
 part1:   .asciiz "The result of "
 part2:   .asciiz " plus "
 part3:   .asciiz " is "
+part4:   .asciiz "."
 
 
 .text
@@ -57,6 +58,10 @@ syscall             # print part3
 li $v0, 1           # specify print of type "Integer"
 move $a0, $t2       # load addr of the result for print
 syscall             # print the sum of the inputs
+
+li $v0, 4           # specify print of type "String"
+la $a0, part4       # load addr of string to print
+syscall
 
 Done:
 li $v0, 10          # specify "Terminate Program"
