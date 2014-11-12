@@ -1,0 +1,43 @@
+PART A:
+   1: The "@" Symbol appears on the screen.
+   2: The "&" Symbol appears on the screen.
+   3: You would need [16 56 40 68 68 130 254 130 130 130]
+   4: You would need [252 130 130 130 252 130 130 130 130 252]
+
+PART B:
+   1: The symbol "X" appears, anchored to top right-hand corner
+   2: The symbol "+" appears, anchored to top right-hand corner
+   3: Just a single "x" is displayed so I guess a period?
+   4: A symbol similar to "*" appears it's a "+" and an "x" together
+      they make a 8 pointed star which is more than the five alloted
+      for a "*"
+   5: Again this is an 8 pointed star, except now there is a hole in
+      the middle where the period was displayed in part 3.
+
+PART C:
+   1: The letter "C" appears
+   2: The letter "D" appears
+   3: Something like a fish appears see below (C = A + B)
+               X     X X  X
+                 X X      X
+               X            X
+               X            X
+               X            X
+               X            X
+                 X X      X
+               X     X X  X
+   4: Oh Gosh ummmm... see below (D = B-A)
+               X   X       X
+               X X   X X X X
+               X X X X X X X X
+               X X X X X X X X
+               X X X X X X X X
+               X X X X X X X X
+               X X   X X X X
+               X   X       X
+   5: Here we get a "D" back again! (E = C -D)
+   6: And we got a "C" back again! (F = C + D)
+
+EXTRA CREDIT
+   1: 16 shifts
+   2: PACMAN!!!!!!

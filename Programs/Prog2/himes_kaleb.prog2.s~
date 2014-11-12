@@ -1,0 +1,192 @@
+#############################################
+## Name:  Kaleb Himes                       #
+## Email: kaleb.himes@gmail.com             #
+#############################################
+##                                          #
+##  This program prints a bitmap of a       #
+##  character based on vector of integers.  #
+##                                          #
+##  Dimensions: 9 bits x 10 rows            #
+##  Mapping:    0 ==> '-'; 1 ==> 'X'        #
+##                                          #
+##  Variable List:                          #
+##    # list variables used in main here    #
+##                                          #
+##    # but list all procedure variables    #
+##    #             with procedure comments #
+##                                          #
+##                                          #
+############################################# 
+
+.globl main
+
+#############################################
+#                                           #
+#                   Data                    #
+#                                           #
+#############################################
+.data
+
+testseq: .word 16 56 84 80 48 24 20 84 56 16
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+# P=problem, A = which problem, _X = number x of that problem #
+# EXAMPLE: PA_1 = Problem A part 1                            # 
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+# QUESTION A
+PA_1:	.word 60 66 157 293 329 329 334 304 131 124
+PA_2: .word 0 56 72 80 102 420 296 274 236 0
+
+#sequence for the letter "A"
+PA_3: .word 16 56 40 68 68 130 254 130 130 130
+
+#sequence for the letter "B" 
+PA_4: .word 252 130 130 130 252 130 130 130 130 252
+
+# QUESTION B
+PB_1: .word 65 34 20 8 20 34 65 0 0 0
+PB_2: .word 8 8 8 127 8 8 8 0 0 0
+PB_3: .word 0 0 0 8 0 0 0 0 0 0
+PB_4: .word 73 42 28 127 28 42 73 0 0 0
+PB_5: .word 73 42 28 119 28 42 73 0 0 0
+
+# QUESTION C
+PC_1: .word 0 60 64 128 128 128 128 64 60 0
+PC_2: .word 0 248 132 130 130 130 130 132 248 0
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+# END OF EXPERIMENT DEFINITIONS                               #
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
+
+arraysize: .word 10
+returnline: .asciiz "\n"
+space: .asciiz " "
+minus: .asciiz "-"
+ex: .asciiz "X"
+
+
+
+#############################################
+#                                           #
+#                  Program                  #
+#                                           #
+# For experiment replace the line as        #
+# specified for whichever test is currently #
+# being run.                                #
+#############################################
+.text
+main:
+	
+   #Your experiments go here
+
+   add $t5, $t5, $zero       #initialize $t5 counter to zero
+   add $s2, $s2, $zero       #zero out the check register
+   addi $s2, $s2, 512        #initialize or check register 512
+
+experiment_1:
+   lw $t3, arraysize          #length of the array
+#########################################
+# REPLACE THIS LINE WITH:               #
+# "la $t1, < THE EXPERIMENT NUMBER HERE>#
+#---------------------------------------#
+# EXAMPLE: "la $t1, PA_1"               #
+#########################################
+   la $t1, PB_5               #get address of sequence[0]
+#########################################
+# END REPLACE THIS LINE                 #
+#########################################
+   li $t2, 0                  #i = 0; $t2 = i
+   j rowprint                 #jump to rowprint, save $ra
+end_1:
+   j exit                     #exit the program
+
+############################################# 
+# Procedure: newline					           #
+#############################################
+#    prints a return line                   #  
+#										              #
+#############################################
+
+newline:
+   lw $t6, arraysize          #limiter for return lines, j
+   addi $t6, $t6, -1          #j--;
+   beq $t5, $t6, exit         #if j==0 printanother return line
+   li $v0, 4                  #4 = "print string"
+   la $a0, returnline         #load address of the string
+   syscall                    #print the string
+   addi $t5, $t5, 1           #i++;
+   j rowprint                 #run the row print
+	
+############################################# 
+# Procedure: rowprint					        #
+#############################################
+#   - prints out the given integer as a     #
+#     single row of bits (0='-' and 1='X"). #
+#										              #
+#   - inputs : $a0 = int value to display   #
+#   - outputs: none                         #  
+#										              #
+#############################################
+
+	# complete your procedure body here
+   # do not forgot to ample comments!
+
+rowprint:
+   beq $t2, $t3, newline      #if loop done, print new line
+   lw $t7, 0($t1)             #load first element for testing
+
+check:
+   #check "n" bit is set, start at 9, check till 1
+   srl $s2, $s2, 1           #shift right 1
+   beq $s2, $zero, endloop   #if no more bits to check then endloop
+   and $s1, $t7, $a1         #check if first bit is set
+   la $t6, check             #advance ra two executions down
+   beq $s1, $s2, printex     #if bit is set print "X"
+   bne $s1, $s2, printminus  #else print "-"
+
+endloop:
+   addi $s2, $s2, 512         #reset check bit in prep for next loop
+   addi $t2, $t2, 1           #i++
+   addi $t1, $t1, 4           #advance array pointer
+   j newline                  #repeat till nine values are printed
+
+printex:
+   la $a0, ex                 #load up "X" for printing
+   li $v0, 4                  #4=print string
+   syscall                    #print the string
+   la $a0, space              #load up space for printing
+   li $v0, 4                  #print string
+   syscall                    #print space
+   j $t6                      #return from whence we came
+
+printminus:
+   la $a0, minus              #load up "-" for printing
+   li $v0, 4                  #4=print string
+   syscall                    #print the string
+   la $a0, space              #load up space for printing
+   li $v0, 4                  #print string
+   syscall                    #print space
+   j $t6                      #return from whence we came
+#############################################	
+## end procedure rowprint                  ##
+#############################################	
+
+
+	# Your other procedures go here...
+
+
+
+############################################# 
+# Procedure: exit   					           #
+#############################################
+#   - exit the program                      #
+#										              #
+#   - inputs : none                         #
+#   - outputs: none                         #  
+#										              #
+#############################################
+exit:
+	li $v0, 10				      # load $v0 with "Exit program" (10)
+	syscall                    # exit
+	
+#############################################	
+## end program                             ##
+#############################################	
