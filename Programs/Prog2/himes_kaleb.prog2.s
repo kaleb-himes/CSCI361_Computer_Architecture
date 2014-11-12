@@ -153,7 +153,7 @@ main:
    la $t1, PC_2               #get address of sequence[0]
    jal charprint              #store return addr and printchar
 #-------------------#
-#Problem C part 3  #
+#Problem C part 3   #
 #-------------------#
    la $s1, PC_1               #array1 = PC_1
    la $s2, PC_2               #array2 = PC_2
@@ -234,11 +234,11 @@ charprint:
    addiu $s2, $s2, 256        #initialize or check register 256
    j rowprint                 #run the row print	
 #############################################################
-# Procedure: rowprint					        #################
+# Procedure: rowprint                       #################
 #############################################################
 #   - prints out the given integer as a     #################
 #     single row of bits (0='-' and 1='X"). #################
-#										              #################
+#                                           #################
 #   - inputs :                              #################
 #              $t1 = experiment             #################
 #              $t2 = i for rowprint         #################
@@ -247,9 +247,9 @@ charprint:
 #              $s2 = bit checking register  #################
 #              $s0 = size of array          #################
 #   - outputs: prints out 90 strings        #################  
-#										              #################
+#                                           #################
 #############################################################
-	# complete your procedure body here                      #
+   # complete your procedure body here                      #
    # do not forgot to ample comments!                       #
 rowprint:                                                   #
    beq $t2, $s0, newline      #if i == 10, print new line   #
@@ -463,13 +463,13 @@ someOperation:                                              #
 #############################################################
 #-------------------------------------------#
 ############################################# 
-# Procedure: exit   					           #
+# Procedure: exit                           #
 #############################################
 #   - exit the program                      #
-#										              #
+#                                           #
 #   - inputs : none                         #
 #   - outputs: none                         #  
-#										              #
+#                                           #
 #############################################
 exit:
 	li $v0, 10				            # load $v0 with "Exit program" (10)
