@@ -32,7 +32,7 @@ testseq: .word 16 56 84 80 48 24 20 84 56 16
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
 # QUESTION A
 dPA_1: .asciiz "PA_1"
-PA_1:	.word 60 66 157 293 329 329 334 304 131 124     #Problem A part 1
+PA_1: .word 60 66 157 293 329 329 334 304 131 124     #Problem A part 1
 PA_2: .word 0 56 72 80 102 420 296 274 236 0          #Problem A part 2
 #sequence for the letter "A"
 PA_3: .word 16 56 40 68 68 130 254 130 130 130        #Problem A part 3
