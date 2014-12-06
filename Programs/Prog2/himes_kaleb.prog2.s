@@ -166,8 +166,8 @@ main:
 #-------------------#
 # Problem C part 4  #
 #-------------------#
-   la $s1, PC_1               #array1 = PC_1
-   la $s2, PC_2               #array2 = PC_2
+   la $s1, PC_2              #array1 = PC_1
+   la $s2, PC_1               #array2 = PC_2
    la $s4, buffer_D           #buffer for storing result of op
    li $t6, 0                  #ensure $t6 is zero
    addi $t6, $t6, 5           #5 = "subtract"
@@ -519,9 +519,12 @@ animate:
    #                                           #
    #############################################
    animate_begin:
-#exit condition: if we "and" something and the result is zero, increment, if
-#                increment reaches 10, all spots are returning zeros and must
-#                no longer be being displayed on screen.
+   
+#exit condition: 
+#if we "and" something and the result is zero, increment, if
+#increment reaches 10, all spots are returning zeros and must
+#no longer be being displayed on screen.
+
       beq $t5, 10, gotoprint           #if checks complete, print.
       lw $t1, 0($s1)                   #load array [0] into $t1
       and $t3, $t1, $t2                #store result of "and" in $t3
